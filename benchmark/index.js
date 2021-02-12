@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-var benchmark = require('benchmark')
-var benchmarks = require('beautify-benchmark')
+const benchmark = require('benchmark')
+const benchmarks = require('beautify-benchmark')
 
 /**
  * Globals for benchmark.js
@@ -16,7 +16,7 @@ global.req1 = fakerequest({ 'x-forwarded-for': '192.168.0.10' })
 global.req2 = fakerequest({ 'x-forwarded-for': '192.168.0.10, 192.168.1.20' })
 global.req5 = fakerequest({ 'x-forwarded-for': '192.168.0.10, 192.168.1.20, 192.168.1.21, 192.168.1.22, 192.168.1.23' })
 
-var suite = new benchmark.Suite()
+const suite = new benchmark.Suite()
 
 suite.add({
   name: 'no header',
@@ -50,12 +50,12 @@ suite.on('complete', function onComplete () {
   benchmarks.log()
 })
 
-suite.run({async: false})
+suite.run({ async: false })
 
 function fakerequest (headers) {
   return {
     headers: headers,
-    connection: {
+    socket: {
       remoteAddress: '10.0.0.1'
     }
   }

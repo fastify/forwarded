@@ -27,9 +27,9 @@ function forwarded (req) {
   }
 
   // simple header parsing
-  var proxyAddrs = parse(req.headers['x-forwarded-for'] || '')
-  var socketAddr = req.connection.remoteAddress
-  var addrs = [socketAddr].concat(proxyAddrs)
+  const proxyAddrs = parse(req.headers['x-forwarded-for'] || '')
+  const socketAddr = req.socket.remoteAddress
+  const addrs = [socketAddr].concat(proxyAddrs)
 
   // return all addresses
   return addrs
@@ -43,12 +43,12 @@ function forwarded (req) {
  */
 
 function parse (header) {
-  var end = header.length
-  var list = []
-  var start = header.length
+  let end = header.length
+  const list = []
+  let start = header.length
 
   // gather addresses, backwards
-  for (var i = header.length - 1; i >= 0; i--) {
+  for (let i = header.length - 1; i >= 0; i--) {
     switch (header.charCodeAt(i)) {
       case 0x20: /*   */
         if (start === end) {

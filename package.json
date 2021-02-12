@@ -1,8 +1,9 @@
 {
-  "name": "forwarded",
+  "name": "@fastify/forwarded",
   "description": "Parse HTTP X-Forwarded-For header",
   "version": "0.1.2",
   "contributors": [
+    "Matteo Collina <hello@matteocollina.com>",
     "Douglas Christopher Wilson <doug@somethingdoug.com>"
   ],
   "license": "MIT",
@@ -11,18 +12,12 @@
     "http",
     "req"
   ],
-  "repository": "jshttp/forwarded",
+  "repository": "fastify/forwarded",
   "devDependencies": {
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
-    "eslint": "4.19.1",
-    "eslint-config-standard": "11.0.0",
-    "eslint-plugin-import": "2.12.0",
-    "eslint-plugin-node": "6.0.1",
-    "eslint-plugin-promise": "3.8.0",
-    "eslint-plugin-standard": "3.1.0",
-    "istanbul": "0.4.5",
-    "mocha": "1.21.5"
+    "standard": "^16.0.3",
+    "tap": "^14.11.0"
   },
   "files": [
     "LICENSE",
@@ -31,13 +26,10 @@
     "index.js"
   ],
   "engines": {
-    "node": ">= 0.6"
+    "node": ">= 10"
   },
   "scripts": {
     "bench": "node benchmark/index.js",
-    "lint": "eslint .",
-    "test": "mocha --reporter spec --bail --check-leaks test/",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
-    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/"
+    "test": "standard && tap"
   }
 }
