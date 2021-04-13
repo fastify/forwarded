@@ -12,7 +12,14 @@
     "http",
     "req"
   ],
-  "repository": "fastify/forwarded",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/forwarded.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fastify/forwarded/issues"
+  },
+  "homepage": "https://github.com/fastify/forwarded#readme",
   "devDependencies": {
     "beautify-benchmark": "0.2.4",
     "benchmark": "2.1.4",
