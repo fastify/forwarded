@@ -1,4 +1,4 @@
-# @fastifyjs/forwarded
+# @fastify/forwarded
 
 ![CI](https://github.com/fastify/forwarded/workflows/CI/badge.svg)
 [![NPM version](https://img.shields.io/npm/v/@fastify/forwarded.svg?style=flat)](https://www.npmjs.com/package/@fastify/forwarded)
@@ -19,7 +19,7 @@ $ npm install @fastifyjs/forwarded
 ## API
 
 ```js
-var forwarded = require('@fastifyjs/forwarded')
+var forwarded = require('@fastify/forwarded')
 ```
 
 ### forwarded(req)
