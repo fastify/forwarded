@@ -1,5 +1,10 @@
 # @fastifyjs/forwarded
 
+![CI](https://github.com/fastify/forwarded/workflows/CI/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/@fastify/forwarded.svg?style=flat)](https://www.npmjs.com/package/@fastify/forwarded)
+[![Known Vulnerabilities](https://snyk.io/test/github/fastify/forwarded/badge.svg)](https://snyk.io/test/github/fastify/forwarded)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
+
 Parse HTTP X-Forwarded-For header.
 
 Updated version of the great https://github.com/jshttp/forwarded.
