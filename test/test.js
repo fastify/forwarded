@@ -11,7 +11,7 @@ test('should require req', function (t) {
 test('should work with X-Forwarded-For header', function (t) {
   t.plan(1)
   const req = createReq('127.0.0.1')
-  t.deepEqual(forwarded(req), ['127.0.0.1'])
+  t.same(forwarded(req), ['127.0.0.1'])
 })
 
 test('should include entries from X-Forwarded-For', function (t) {
@@ -19,7 +19,7 @@ test('should include entries from X-Forwarded-For', function (t) {
   const req = createReq('127.0.0.1', {
     'x-forwarded-for': '10.0.0.2, 10.0.0.1'
   })
-  t.deepEqual(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
+  t.same(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
 })
 
 test('should skip blank entries', function (t) {
@@ -27,7 +27,7 @@ test('should skip blank entries', function (t) {
   const req = createReq('127.0.0.1', {
     'x-forwarded-for': '10.0.0.2,, 10.0.0.1'
   })
-  t.deepEqual(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
+  t.same(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
 })
 
 test('should trim leading OWS', function (t) {
@@ -35,7 +35,7 @@ test('should trim leading OWS', function (t) {
   const req = createReq('127.0.0.1', {
     'x-forwarded-for': ' 10.0.0.2 ,  , 10.0.0.1 '
   })
-  t.deepEqual(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
+  t.same(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
 })
 
 function createReq (socketAddr, headers) {

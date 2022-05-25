@@ -54,7 +54,7 @@ suite.run({ async: false })
 
 function fakerequest (headers) {
   return {
-    headers: headers,
+    headers,
     socket: {
       remoteAddress: '10.0.0.1'
     }
