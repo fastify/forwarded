@@ -12,7 +12,7 @@ Implements https://github.com/jshttp/forwarded/pull/9.
 ## Installation
 
 ```sh
-$ npm install @fastifyjs/forwarded
+$ npm install @fastify/forwarded
 ```
 
 ## API
