@@ -14,40 +14,53 @@
  * @public
  */
 
-module.exports = function forwarded (req) {
+function forwarded (req) {
   if (!req) {
     throw new TypeError('argument req is required')
   }
 
-  // simple header parsing
+  const header = req.headers['x-forwarded-for']
   const socketAddr = req.socket.remoteAddress
 
-  const header = req.headers['x-forwarded-for']
-  if (!header && typeof header !== 'string') {
+  if (!header || typeof header !== 'string') {
     return [socketAddr]
   } else if (header.indexOf(',') === -1) {
-    return [socketAddr, header.trim()]
+    const remote = header.trim()
+    return (remote.length)
+      ? [socketAddr, remote]
+      : [socketAddr]
   } else {
-    let end = header.length
-    let start = end
-    const result = [socketAddr]
-    let char = ''
-    // gather addresses, backwards
-    for (let i = end - 1; i >= 0; --i) {
-      char = header[i]
-      if (char === ' ') {
-        (start === end) && (start = end = i)
-      } else if (char === ',') {
-        (start !== end) && result.push(header.slice(start, end))
-        start = end = i
-      } else {
-        start = i
-      }
-    }
-
-    // final address
-    (start !== end) && result.push(header.substring(start, end))
-    // return all addresses
-    return result
+    return parse(header, socketAddr)
   }
 }
+
+function parse (header, socketAddr) {
+  const result = [socketAddr]
+
+  let end = header.length
+  let start = end
+  let char
+  let i
+
+  for (i = end - 1; i >= 0; --i) {
+    char = header[i]
+    if (char === ' ') {
+      (start === end) && (start = end = i)
+      continue
+    }
+    if (char === ',') {
+      (start !== end) && result.push(header.slice(start, end))
+      start = end = i
+      continue
+    }
+    start = i
+  }
+
+  (start !== end) && result.push(header.substring(start, end))
+
+  return result
+}
+
+module.exports = forwarded
+module.exports.default = forwarded
+module.exports.forwarded = forwarded

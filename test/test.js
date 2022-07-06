@@ -25,6 +25,14 @@ test('should include entries from X-Forwarded-For', function (t) {
 test('should include entries from X-Forwarded-For', function (t) {
   t.plan(1)
   const req = createReq('127.0.0.1', {
+    'x-forwarded-for': '   '
+  })
+  t.same(forwarded(req), ['127.0.0.1'])
+})
+
+test('should include entries from X-Forwarded-For', function (t) {
+  t.plan(1)
+  const req = createReq('127.0.0.1', {
     'x-forwarded-for': '10.0.0.1'
   })
   t.same(forwarded(req), ['127.0.0.1', '10.0.0.1'])
