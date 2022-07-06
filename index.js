@@ -41,14 +41,12 @@ function parse (header, socketAddr) {
     char = header[i]
     if (char === ' ') {
       (start === end) && (start = end = i)
-      continue
-    }
-    if (char === ',') {
+    } else if (char === ',') {
       (start !== end) && result.push(header.slice(start, end))
       start = end = i
-      continue
+    } else {
+      start = i
     }
-    start = i
   }
 
   (start !== end) && result.push(header.substring(start, end))
