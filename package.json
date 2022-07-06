@@ -40,7 +40,7 @@
   ],
   "scripts": {
     "bench": "node benchmark/index.js",
-    "bench:combined": "node benchmark/index.js",
+    "bench:combined": "node benchmark/combined.js",
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "npm run test:unit && npm run test:typescript",
