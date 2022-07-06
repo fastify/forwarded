@@ -7,13 +7,8 @@
 'use strict'
 
 /**
- * Get all addresses in the request, using the `X-Forwarded-For` header.
- *
- * @param {object} req
- * @return {array}
- * @public
+ * Get all addresses in the request used in the `X-Forwarded-For` header.
  */
-
 function forwarded (req) {
   if (!req) {
     throw new TypeError('argument req is required')
