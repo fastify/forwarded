@@ -7,13 +7,6 @@
 'use strict'
 
 /**
- * Module exports.
- * @public
- */
-
-module.exports = forwarded
-
-/**
  * Get all addresses in the request, using the `X-Forwarded-For` header.
  *
  * @param {object} req
@@ -21,56 +14,40 @@ module.exports = forwarded
  * @public
  */
 
-function forwarded (req) {
+module.exports = function forwarded (req) {
   if (!req) {
     throw new TypeError('argument req is required')
   }
 
   // simple header parsing
-  const proxyAddrs = parse(req.headers['x-forwarded-for'] || '')
   const socketAddr = req.socket.remoteAddress
-  const addrs = [socketAddr].concat(proxyAddrs)
 
-  // return all addresses
-  return addrs
-}
-
-/**
- * Parse the X-Forwarded-For header.
- *
- * @param {string} header
- * @private
- */
-
-function parse (header) {
-  let end = header.length
-  const list = []
-  let start = header.length
-
-  // gather addresses, backwards
-  for (let i = header.length - 1; i >= 0; i--) {
-    switch (header.charCodeAt(i)) {
-      case 0x20: /*   */
-        if (start === end) {
-          start = end = i
-        }
-        break
-      case 0x2c: /* , */
-        if (start !== end) {
-          list.push(header.substring(start, end))
-        }
+  const header = req.headers['x-forwarded-for']
+  if (!header && typeof header !== 'string') {
+    return [socketAddr]
+  } else if (header.indexOf(',') === -1) {
+    return [socketAddr, header.trim()]
+  } else {
+    let end = header.length
+    let start = end
+    const result = [socketAddr]
+    let char = ''
+    // gather addresses, backwards
+    for (let i = end - 1; i >= 0; --i) {
+      char = header[i]
+      if (char === ' ') {
+        (start === end) && (start = end = i)
+      } else if (char === ',') {
+        (start !== end) && result.push(header.slice(start, end))
         start = end = i
-        break
-      default:
+      } else {
         start = i
-        break
+      }
     }
-  }
 
-  // final address
-  if (start !== end) {
-    list.push(header.substring(start, end))
+    // final address
+    (start !== end) && result.push(header.substring(start, end))
+    // return all addresses
+    return result
   }
-
-  return list
 }
