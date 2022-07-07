@@ -7,70 +7,53 @@
 'use strict'
 
 /**
- * Module exports.
- * @public
+ * Get all addresses in the request used in the `X-Forwarded-For` header.
  */
-
-module.exports = forwarded
-
-/**
- * Get all addresses in the request, using the `X-Forwarded-For` header.
- *
- * @param {object} req
- * @return {array}
- * @public
- */
-
 function forwarded (req) {
   if (!req) {
     throw new TypeError('argument req is required')
   }
 
-  // simple header parsing
-  const proxyAddrs = parse(req.headers['x-forwarded-for'] || '')
+  const header = req.headers['x-forwarded-for']
   const socketAddr = req.socket.remoteAddress
-  const addrs = [socketAddr].concat(proxyAddrs)
 
-  // return all addresses
-  return addrs
+  if (!header || typeof header !== 'string') {
+    return [socketAddr]
+  } else if (header.indexOf(',') === -1) {
+    const remote = header.trim()
+    return (remote.length)
+      ? [socketAddr, remote]
+      : [socketAddr]
+  } else {
+    return parse(header, socketAddr)
+  }
 }
 
-/**
- * Parse the X-Forwarded-For header.
- *
- * @param {string} header
- * @private
- */
+function parse (header, socketAddr) {
+  const result = [socketAddr]
 
-function parse (header) {
   let end = header.length
-  const list = []
-  let start = header.length
+  let start = end
+  let char
+  let i
 
-  // gather addresses, backwards
-  for (let i = header.length - 1; i >= 0; i--) {
-    switch (header.charCodeAt(i)) {
-      case 0x20: /*   */
-        if (start === end) {
-          start = end = i
-        }
-        break
-      case 0x2c: /* , */
-        if (start !== end) {
-          list.push(header.substring(start, end))
-        }
-        start = end = i
-        break
-      default:
-        start = i
-        break
+  for (i = end - 1; i >= 0; --i) {
+    char = header[i]
+    if (char === ' ') {
+      (start === end) && (start = end = i)
+    } else if (char === ',') {
+      (start !== end) && result.push(header.slice(start, end))
+      start = end = i
+    } else {
+      start = i
     }
   }
 
-  // final address
-  if (start !== end) {
-    list.push(header.substring(start, end))
-  }
+  (start !== end) && result.push(header.substring(start, end))
 
-  return list
+  return result
 }
+
+module.exports = forwarded
+module.exports.default = forwarded
+module.exports.forwarded = forwarded
