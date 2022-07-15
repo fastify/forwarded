@@ -28,9 +28,6 @@
     "tap": "^16.0.0",
     "tsd": "^0.22.0"
   },
-  "engines": {
-    "node": ">=14"
-  },
   "types": "types/index.d.ts",
   "files": [
     "LICENSE",
