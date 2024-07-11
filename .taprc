@@ -1,4 +1,3 @@
-ts: false
-jsx: false
-flow: false
-coverage: true
+show-full-coverage: true
+plugin:
+  - "!@tapjs/typescript"
