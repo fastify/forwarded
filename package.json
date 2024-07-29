@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/fastify/forwarded#readme",
   "devDependencies": {
-    "@types/node": "^20.14.9",
+    "@types/node": "^22.0.0",
     "benchmark": "2.1.4",
     "standard": "^17.1.0",
     "tap": "^18.8.0",
