@@ -1,3 +1,0 @@
-show-full-coverage: true
-plugin:
-  - "!@tapjs/typescript"
