@@ -18,13 +18,13 @@ $ npm i @fastify/forwarded
 ## API
 
 ```js
-var forwarded = require('@fastify/forwarded')
+const forwarded = require('@fastify/forwarded')
 ```
 
 ### forwarded(req)
 
 ```js
-var addresses = forwarded(req)
+const addresses = forwarded(req)
 ```
 
 Parse the `X-Forwarded-For` header from the request. Returns an array
