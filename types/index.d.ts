@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from 'http'
 
 type Forwarded = (req: IncomingMessage) => string[]
 
@@ -10,5 +10,5 @@ declare namespace forwarded {
 /**
  * Get all addresses in the request used in the `X-Forwarded-For` header.
  */
-declare function forwarded(...params: Parameters<Forwarded>): ReturnType<Forwarded>
+declare function forwarded (...params: Parameters<Forwarded>): ReturnType<Forwarded>
 export = forwarded

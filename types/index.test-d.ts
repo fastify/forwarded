@@ -1,8 +1,8 @@
-import { IncomingMessage } from "http";
-import { expectError, expectType } from "tsd";
-import { forwarded } from "..";
-import forwardedESM from "..";
-import * as forwardedVarImport from "..";
+import { IncomingMessage } from 'http'
+import { expectError, expectType } from 'tsd'
+import { forwarded } from '..'
+import forwardedESM from '..'
+import * as forwardedVarImport from '..'
 
 expectType<string[]>(forwardedESM({} as IncomingMessage))
 expectType<string[]>(forwarded({} as IncomingMessage))
