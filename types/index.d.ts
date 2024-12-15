@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http'
+import { IncomingMessage } from 'node:http'
 
 type Forwarded = (req: IncomingMessage) => string[]
 
