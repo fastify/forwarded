@@ -1,7 +1,6 @@
 import { IncomingMessage } from 'node:http'
 import { expectError, expectType } from 'tsd'
-import { forwarded } from '..'
-import forwardedESM from '..'
+import forwardedESM, { forwarded } from '..'
 import * as forwardedVarImport from '..'
 
 expectType<string[]>(forwardedESM({} as IncomingMessage))
