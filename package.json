@@ -3,10 +3,25 @@
   "description": "Parse HTTP X-Forwarded-For header",
   "version": "3.0.0",
   "type": "commonjs",
+  "author": "Douglas Christopher Wilson <doug@somethingdoug.com>",
   "contributors": [
-    "Matteo Collina <hello@matteocollina.com>",
-    "Douglas Christopher Wilson <doug@somethingdoug.com>",
-    "Aras Abbasi <aras.abbasi@gmail.com"
+    {
+      "name": "Matteo Collina",
+      "email": "hello@matteocollina.com"
+    },
+    {
+      "name": "James Sumners",
+      "url": "https://james.sumners.info"
+    },
+    {
+      "name": "Aras Abbasi",
+      "email": "aras.abbasi@gmail.com"
+    },
+    {
+      "name": "Frazer Smith",
+      "email": "frazer.dev@icloud.com",
+      "url": "https://github.com/fdawgs"
+    }
   ],
   "license": "MIT",
   "keywords": [
@@ -22,6 +37,16 @@
     "url": "https://github.com/fastify/forwarded/issues"
   },
   "homepage": "https://github.com/fastify/forwarded#readme",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/fastify"
+    },
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/fastify"
+    }
+  ],
   "devDependencies": {
     "@types/node": "^22.0.0",
     "benchmark": "2.1.4",
