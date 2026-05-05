@@ -13,7 +13,5 @@ expect(forwardedVarImport.forwarded({} as IncomingMessage)).type.toBe<
   string[]
 >()
 
-// @ts-expect-error!
-expect(forwarded()).type.toBe<string[]>()
-// @ts-expect-error!
-expect(forwarded('10.0.0.1')).type.toBe<string[]>()
+expect(forwarded).type.not.toBeCallableWith()
+expect(forwarded).type.not.toBeCallableWith('10.0.0.1')
