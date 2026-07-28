@@ -114,6 +114,30 @@ test('should trim trailing OWS after a comma', function (t) {
   ])
 })
 
+test('should trim leading OWS with tabs (HTAB)', function (t) {
+  t.plan(1)
+  const req = createReq('127.0.0.1', {
+    'x-forwarded-for': '\t10.0.0.2\t,\t10.0.0.1'
+  })
+  t.assert.deepStrictEqual(forwarded(req), [
+    '127.0.0.1',
+    '10.0.0.1',
+    '10.0.0.2'
+  ])
+})
+
+test('should trim trailing OWS with tabs (HTAB)', function (t) {
+  t.plan(1)
+  const req = createReq('127.0.0.1', {
+    'x-forwarded-for': '10.0.0.2\t,\t10.0.0.1\t'
+  })
+  t.assert.deepStrictEqual(forwarded(req), [
+    '127.0.0.1',
+    '10.0.0.1',
+    '10.0.0.2'
+  ])
+})
+
 function createReq (socketAddr, headers) {
   return {
     socket: {

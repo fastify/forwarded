@@ -39,7 +39,7 @@ function parse (header, socketAddr) {
 
   for (i = end - 1; i >= 0; --i) {
     char = header[i]
-    if (char === ' ') {
+    if (char === ' ' || char === '\t') {
       (start === end) && (start = end = i)
     } else if (char === ',') {
       (start !== end) && result.push(header.slice(start, end))
