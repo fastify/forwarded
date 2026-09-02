@@ -138,6 +138,41 @@ test('should trim trailing OWS with tabs (HTAB)', function (t) {
   ])
 })
 
+test('should handle unix domain sockets without X-Forwarded-For header', function (t) {
+  t.plan(1)
+  const req = createReq(undefined)
+  t.assert.deepStrictEqual(forwarded(req), [])
+})
+
+test('should handle unix domain sockets with X-Forwarded-For header containing no addresses', function (t) {
+  t.plan(1)
+  const req = createReq(undefined, {
+    'x-forwarded-for': ' '
+  })
+  t.assert.deepStrictEqual(forwarded(req), [])
+})
+
+test('should handle unix domain sockets with X-Forwarded-For header containing one address', function (t) {
+  t.plan(1)
+  const req = createReq(undefined, {
+    'x-forwarded-for': '10.0.0.1'
+  })
+  t.assert.deepStrictEqual(forwarded(req), [
+    '10.0.0.1'
+  ])
+})
+
+test('should handle unix domain sockets with X-Forwarded-For header containing multiple addresses', function (t) {
+  t.plan(1)
+  const req = createReq(undefined, {
+    'x-forwarded-for': '10.0.0.2, 10.0.0.1'
+  })
+  t.assert.deepStrictEqual(forwarded(req), [
+    '10.0.0.1',
+    '10.0.0.2'
+  ])
+})
+
 function createReq (socketAddr, headers) {
   return {
     socket: {
