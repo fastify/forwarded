@@ -28,9 +28,10 @@ const addresses = forwarded(req)
 ```
 
 Parse the `X-Forwarded-For` header from the request. Returns an array
-of the addresses, including the socket address for the `req`, in reverse
-order (i.e. index `0` is the socket address and the last index is the
-furthest address, typically the end-user).
+of the addresses, including the socket address for the `req` if present, in reverse
+order (i.e. index `0` is the socket address if present and the last index is the
+furthest address, typically the end-user). May return an empty array if no socket
+address (i.e. unix domain socket) and no `X-Forwarded-For` header.
 
 ## Testing
 
