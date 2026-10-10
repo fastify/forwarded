@@ -1,7 +1,7 @@
 {
   "name": "@fastify/forwarded",
   "description": "Parse HTTP X-Forwarded-For header",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "type": "commonjs",
   "author": "Douglas Christopher Wilson <doug@somethingdoug.com>",
   "contributors": [
