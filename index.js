@@ -18,23 +18,19 @@ function forwarded (req) {
   const socketAddr = req.socket.remoteAddress
 
   if (!header || typeof header !== 'string') {
-    return socketAddr ? [socketAddr] : []
+    return [socketAddr]
   } else if (header.indexOf(',') === -1) {
     const remote = header.trim()
-    if (socketAddr) {
-      return (remote.length)
-        ? [socketAddr, remote]
-        : [socketAddr]
-    } else {
-      return (remote.length) ? [remote] : []
-    }
+    return (remote.length)
+      ? [socketAddr, remote]
+      : [socketAddr]
   } else {
     return parse(header, socketAddr)
   }
 }
 
 function parse (header, socketAddr) {
-  const result = socketAddr ? [socketAddr] : []
+  const result = [socketAddr]
 
   let end = header.length
   let start = end
