@@ -1,8 +1,28 @@
 {
   "name": "@fastify/forwarded",
-  "description": "Parse HTTP X-Forwarded-For header",
   "version": "3.1.1",
+  "description": "Parse HTTP X-Forwarded-For header",
+  "main": "index.js",
   "type": "commonjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "bench": "node benchmark/index.js",
+    "bench:combined": "node benchmark/combined.js",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test": "npm run test:unit && npm run test:typescript",
+    "test:unit": "c8 --100 node --test",
+    "test:typescript": "tstyche"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/forwarded.git"
+  },
+  "keywords": [
+    "x-forwarded-for",
+    "http",
+    "req"
+  ],
   "author": "Douglas Christopher Wilson <doug@somethingdoug.com>",
   "contributors": [
     {
@@ -24,15 +44,6 @@
     }
   ],
   "license": "MIT",
-  "keywords": [
-    "x-forwarded-for",
-    "http",
-    "req"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fastify/forwarded.git"
-  },
   "bugs": {
     "url": "https://github.com/fastify/forwarded/issues"
   },
@@ -54,21 +65,5 @@
     "eslint": "^9.17.0",
     "neostandard": "^0.13.0",
     "tstyche": "^7.0.0"
-  },
-  "types": "types/index.d.ts",
-  "files": [
-    "LICENSE",
-    "README.md",
-    "index.js",
-    "types/index.d.ts"
-  ],
-  "scripts": {
-    "bench": "node benchmark/index.js",
-    "bench:combined": "node benchmark/combined.js",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "test": "npm run test:unit && npm run test:typescript",
-    "test:unit": "c8 --100 node --test",
-    "test:typescript": "tstyche"
   }
 }
